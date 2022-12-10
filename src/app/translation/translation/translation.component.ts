@@ -12,8 +12,8 @@ export class TranslationComponent implements OnInit, OnDestroy {
   translatorStatus: TranslatorStatus = {
     numberOfTranslations: 0,
     registeredUser: null,
-    mayTranslate: true,
   };
+  mayTranslate: boolean = true;
 
   constructor(
     private translation: TranslationService,
@@ -24,10 +24,14 @@ export class TranslationComponent implements OnInit, OnDestroy {
     this.translatorStatusService.$translatorStatus.subscribe((status) => {
       this.translatorStatus = status;
     });
+    this.translatorStatusService.$mayTranslate.subscribe((status) => {
+      this.mayTranslate = status;
+    });
   }
 
   ngOnDestroy() {
     this.translatorStatusService.$translatorStatus.unsubscribe;
+    this.translatorStatusService.$mayTranslate.unsubscribe;
   }
 
   translate() {

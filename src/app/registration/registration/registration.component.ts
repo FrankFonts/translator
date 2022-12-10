@@ -9,7 +9,7 @@ import { TranslatorStatusService } from 'src/app/translator-status.service';
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-  translatorStatus?: TranslatorStatus;
+  mayTranslate: boolean = true;
 
   constructor(
     private router: Router,
@@ -17,11 +17,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.translatorStatusService.$translatorStatus.subscribe((status) => {
-      this.translatorStatus = status;
+    this.translatorStatusService.$mayTranslate.subscribe((status) => {
+      this.mayTranslate = status;
     });
 
-    if (this.translatorStatus?.mayTranslate) {
+    if (this.mayTranslate) {
       this.router.navigateByUrl('/');
     }
   }

@@ -8,5 +8,4 @@ export interface User {
 export interface TranslatorStatus {
   numberOfTranslations: number;
   registeredUser: User | null;
-  mayTranslate: boolean;
 }

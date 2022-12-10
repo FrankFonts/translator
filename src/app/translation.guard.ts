@@ -7,23 +7,19 @@ import { TranslatorStatusService } from './translator-status.service';
   providedIn: 'root',
 })
 export class TranslationGuard implements CanActivate {
-  translatorStatus: TranslatorStatus = {
-    numberOfTranslations: 0,
-    registeredUser: null,
-    mayTranslate: false,
-  };
+  mayTranslate: boolean = true;
 
   constructor(
     private router: Router,
     private translatorStatusService: TranslatorStatusService
   ) {
-    this.translatorStatusService.$translatorStatus.subscribe((status) => {
-      this.translatorStatus = status;
+    this.translatorStatusService.$mayTranslate.subscribe((status) => {
+      this.mayTranslate = status;
     });
   }
 
   canActivate(): boolean {
-    if (this.translatorStatus.mayTranslate) {
+    if (this.mayTranslate) {
       return true;
     } else {
       this.router.navigateByUrl('/registration');

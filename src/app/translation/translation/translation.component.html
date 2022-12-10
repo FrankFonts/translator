@@ -1,6 +1,6 @@
 <h2>Go on and use the service</h2>
 
-<ng-container *ngIf="translatorStatus.mayTranslate; else registrationButton">
+<ng-container *ngIf="mayTranslate; else registrationButton">
   <button (click)="translate()">Translate</button>
 </ng-container>
 
