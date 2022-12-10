@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslatorStatus } from 'src/app/interfaces';
 import { TranslatorStatusService } from 'src/app/translator-status.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -10,6 +11,13 @@ import { TranslatorStatusService } from 'src/app/translator-status.service';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   mayTranslate: boolean = true;
+
+  userData = new FormGroup({
+    name: new FormControl('', Validators.required),
+    emailAddress: new FormControl('', [Validators.required, Validators.email]),
+    phoneNumber: new FormControl('', Validators.required),
+    gdprConsent: new FormControl('', Validators.required),
+  });
 
   constructor(
     private router: Router,
@@ -28,5 +36,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.translatorStatusService.$translatorStatus.unsubscribe;
+  }
+
+  registerUser() {
+    console.log(this.userData.value);
   }
 }
