@@ -1,0 +1,13 @@
+<h2>Go on and use the service</h2>
+
+<ng-container *ngIf="translatorStatus.mayTranslate; else registrationButton">
+  <button (click)="translate()">Translate</button>
+</ng-container>
+
+<ng-template #registrationButton>
+  <button [routerLink]="['/registration']">Registrate</button>
+</ng-template>
+
+<pre
+  >{{ translatorStatus | json }}
+</pre>
