@@ -10,9 +10,4 @@ export class AppComponent {
   title = 'translator';
 
   constructor(private router: Router) {}
-
-  goHome() {
-    // this.router.navigateByUrl('/');
-    alert('hi');
-  }
 }

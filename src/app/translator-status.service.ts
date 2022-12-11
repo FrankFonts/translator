@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TranslatorStatus, User } from './interfaces';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class TranslatorStatusService {
-  private _localStorageKey: string = 'translatorStatus';
-
   translatorStatus: TranslatorStatus = {
     numberOfTranslations: 0,
     registeredUser: null,
@@ -20,10 +18,14 @@ export class TranslatorStatusService {
   $mayTranslate = new BehaviorSubject<boolean>(true);
 
   constructor() {
-    let localStorageContent = this.getLocalStrorageData(this._localStorageKey);
+    let localStorageContent = this.getLocalStrorageData(
+      environment.localStorageKey
+    );
 
     if (null === localStorageContent) {
       this.setLocasStorageData(this.translatorStatus);
+
+      this.updateTranslationStatus();
     } else {
       this.translatorStatus = JSON.parse(localStorageContent);
 
@@ -37,7 +39,7 @@ export class TranslatorStatusService {
 
   setLocasStorageData(translatorStatus: TranslatorStatus) {
     localStorage.setItem(
-      this._localStorageKey,
+      environment.localStorageKey,
       JSON.stringify(translatorStatus)
     );
   }

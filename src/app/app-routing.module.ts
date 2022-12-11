@@ -1,25 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { RegistrationGuard } from './registration.guard';
 import { TranslationGuard } from './translation.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/translator',
+    redirectTo: environment.translationUrl,
     pathMatch: 'full',
   },
   {
-    path: 'registration',
+    path: environment.registrationUrl,
+    canActivate: [RegistrationGuard],
     loadChildren: () =>
       import('./registration/registration.module').then(
         (m) => m.RegistrationModule
       ),
   },
   {
-    path: 'translator',
+    path: environment.translationUrl,
     canActivate: [TranslationGuard],
     loadChildren: () =>
-      import('./translation/translator.module').then(
+      import('./translation/translation.module').then(
         (m) => m.TranslationModule
       ),
   },

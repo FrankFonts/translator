@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslatorStatus } from 'src/app/interfaces';
 import { TranslatorStatusService } from 'src/app/translator-status.service';
+import { environment } from 'src/environments/environment';
 import { TranslationService } from '../translation.service';
 
 @Component({
@@ -17,7 +19,8 @@ export class TranslationComponent implements OnInit, OnDestroy {
 
   constructor(
     private translation: TranslationService,
-    private translatorStatusService: TranslatorStatusService
+    private translatorStatusService: TranslatorStatusService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -32,6 +35,10 @@ export class TranslationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.translatorStatusService.$translatorStatus.unsubscribe;
     this.translatorStatusService.$mayTranslate.unsubscribe;
+  }
+
+  navigateToRegistration() {
+    this.router.navigateByUrl(environment.registrationUrl);
   }
 
   translate() {

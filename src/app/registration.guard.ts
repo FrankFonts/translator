@@ -5,7 +5,7 @@ import { TranslatorStatusService } from './translator-status.service';
 @Injectable({
   providedIn: 'root',
 })
-export class TranslationGuard implements CanActivate {
+export class RegistrationGuard implements CanActivate {
   mayTranslate: boolean = true;
 
   constructor(
@@ -19,10 +19,10 @@ export class TranslationGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.mayTranslate) {
-      return true;
-    } else {
-      this.router.navigateByUrl('/registration');
+      this.router.navigateByUrl('/translator');
       return false;
+    } else {
+      return true;
     }
   }
 }
