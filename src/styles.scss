@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(230, 243, 246);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .left-side {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .fake-logo {
+      height: 36px;
+      width: 36px;
+      svg {
+        fill: white;
+      }
+    }
+    
+    .fake-tagline {
+      margin: 0 0 0 16px;
+    }
+  }
+}
+
+mat-toolbar {
+  width: 100%;
+}
+.mat-card {
+  padding: 32px 32px 48px !important;
+  box-sizing: border-box;
+}
+.content-wrap {
+  padding: 48px 16px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.error {
+  color: #f44336;
+}
+
+.field-error {
+  margin-top: -24px;
+  margin-bottom: 24px;
+  display: block;
+}
+
+app-registration,
+app-translation {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+}
+
+.title {
+  margin: 0;
+  padding: 0 0 48px;
+  color: #3f51b5;
+}
+
+.registration-card {
+  box-sizing: border-box;
+  padding: 32px;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin: 0 0 16px 0;
+}
+
+.mat-checkbox {
+  margin: 0 0 32px 0;
+}
+
+button {
+  margin: 24px auto 16px !important;
+  padding: 16px 0 !important;
+  width: 100%;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+input {
+  background-color: transparent !important;
+}

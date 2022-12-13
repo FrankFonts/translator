@@ -1,17 +1,128 @@
-<h2>Go on and use the service</h2>
+<mat-card class="input-card">
+  <h1 class="title">Go on and use the service</h1>
 
-<ng-container *ngIf="mayTranslate; else registrationButton">
-  <button (click)="translate()" mat-flat-button color="primary">
-    Translate
-  </button>
-</ng-container>
+  <form [formGroup]="translationData" (submit)="onSubmit()">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Source langage</mat-label>
+        <mat-select formControlName="sourceLanguage">
+          <mat-option
+            *ngFor="let language of sourceLanguageList"
+            [value]="language.code"
+          >
+            {{ language.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ng-container
+        *ngIf="
+          translationData.controls['sourceLanguage'].invalid &&
+          (translationData.controls['sourceLanguage'].dirty ||
+            translationData.controls['sourceLanguage'].touched)
+        "
+      >
+        <span
+          class="error field-error"
+          *ngIf="translationData.controls['sourceLanguage'].errors?.['required']"
+        >
+          Source language must be provided
+        </span>
+      </ng-container>
+    </div>
 
-<ng-template #registrationButton>
-  <button (click)="navigateToRegistration()" mat-flat-button color="accent">
-    Registrate
-  </button>
-</ng-template>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Target langage</mat-label>
+        <mat-select formControlName="targetLanguage">
+          <mat-option
+            *ngFor="let language of targetLanguageList"
+            [value]="language.code"
+          >
+            {{ language.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<pre
-  >{{ translatorStatus | json }}
-</pre>
+      <ng-container
+        *ngIf="
+          translationData.controls['targetLanguage'].invalid &&
+          (translationData.controls['targetLanguage'].dirty ||
+            translationData.controls['targetLanguage'].touched)
+        "
+      >
+        <span
+          class="error field-error"
+          *ngIf="translationData.controls['targetLanguage'].errors?.['required']"
+        >
+          Target language must be provided
+        </span>
+      </ng-container>
+    </div>
+
+    <div>
+      <mat-form-field
+        class="example-full-width"
+        appearance="fill"
+        matFormFieldControl
+      >
+        <mat-label>Source input</mat-label>
+        <textarea matInput formControlName="sourceInput"></textarea>
+      </mat-form-field>
+
+      <ng-container
+        *ngIf="
+          translationData.controls['sourceInput'].invalid &&
+          (translationData.controls['sourceInput'].dirty ||
+            translationData.controls['sourceInput'].touched)
+        "
+      >
+        <span
+          class="error field-error"
+          *ngIf="translationData.controls['sourceInput'].errors?.['required']"
+        >
+          Source input must be provided
+        </span>
+      </ng-container>
+    </div>
+
+    <div>
+      <ng-container *ngIf="mayTranslate; else registrationButton">
+        <button
+          type="submit"
+          [disabled]="!translationData.valid || translationInProgress"
+          mat-flat-button
+          color="primary"
+        >
+          Translate
+        </button>
+      </ng-container>
+
+      <ng-template #registrationButton>
+        <button
+          (click)="navigateToRegistration()"
+          mat-flat-button
+          color="accent"
+        >
+          Registrate
+        </button>
+      </ng-template>
+    </div>
+  </form>
+
+  <div>
+    <h2>
+      <span *ngIf="translatedInput">
+        {{ translatedInput }}
+      </span>
+
+      <span *ngIf="translationInProgress">Translation In Progress</span>
+    </h2>
+  </div>
+
+  <div *ngIf="translationError" class="error">
+    <h2>Oups, there has been an error:</h2>
+    <p>
+      {{ translationError }}
+    </p>
+  </div>
+</mat-card>

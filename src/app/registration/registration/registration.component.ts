@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 import { User } from 'src/app/interfaces';
 import { environment } from 'src/environments/environment';
@@ -18,7 +17,7 @@ export class RegistrationComponent {
     name: new FormControl('', Validators.required),
     emailAddress: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', Validators.required),
-    gdprConsent: new FormControl(true, Validators.required),
+    gdprConsent: new FormControl(true, Validators.requiredTrue),
   });
 
   constructor(

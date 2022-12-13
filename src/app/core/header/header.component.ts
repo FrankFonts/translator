@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslatorStatusService } from 'src/app/translator-status.service';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  name?: string;
 
-  ngOnInit(): void {}
+  constructor(private translatorStatusService: TranslatorStatusService) {}
+
+  ngOnInit(): void {
+    this.translatorStatusService.$translatorStatus.subscribe((response) => {
+      this.name = response.registeredUser?.name;
+    });
+  }
 }

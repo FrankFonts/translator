@@ -1,20 +1,28 @@
 <mat-card class="registration-card">
-  <mat-card-header>
-    <mat-card-title class="title">
-      You have to register to use this service
-    </mat-card-title>
-  </mat-card-header>
+  <h1 class="title">You have to register to use this service</h1>
+
   <mat-card-content>
-    <form
-      class="example-form"
-      [formGroup]="userData"
-      (ngSubmit)="registerUser()"
-    >
+    <form [formGroup]="userData" (ngSubmit)="registerUser()">
       <div>
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" type="text" />
         </mat-form-field>
+
+        <ng-container
+          *ngIf="
+            userData.controls['name'].invalid &&
+            (userData.controls['name'].dirty ||
+              userData.controls['name'].touched)
+          "
+        >
+          <span
+            class="error field-error"
+            *ngIf="userData.controls['name'].errors?.['required']"
+          >
+            A name must be provided
+          </span>
+        </ng-container>
       </div>
 
       <div>
@@ -22,6 +30,21 @@
           <mat-label>Email Address</mat-label>
           <input matInput formControlName="emailAddress" type="email" />
         </mat-form-field>
+
+        <ng-container
+          *ngIf="
+            userData.controls['emailAddress'].invalid &&
+            (userData.controls['emailAddress'].dirty ||
+              userData.controls['emailAddress'].touched)
+          "
+        >
+          <span
+            class="error field-error"
+            *ngIf="userData.controls['emailAddress'].errors?.['required']"
+          >
+            An e-mail address must be provided
+          </span>
+        </ng-container>
       </div>
 
       <div>
@@ -29,10 +52,42 @@
           <mat-label>Phone Number</mat-label>
           <input matInput formControlName="phoneNumber" type="tel" />
         </mat-form-field>
+
+        <ng-container
+          *ngIf="
+            userData.controls['phoneNumber'].invalid &&
+            (userData.controls['phoneNumber'].dirty ||
+              userData.controls['phoneNumber'].touched)
+          "
+        >
+          <span
+            class="error field-error"
+            *ngIf="userData.controls['phoneNumber'].errors?.['required']"
+          >
+            An e-mail address must be provided
+          </span>
+        </ng-container>
       </div>
 
       <div>
-        <mat-checkbox formControlName="gdprConsent">Consent...</mat-checkbox>
+        <mat-checkbox formControlName="gdprConsent"
+          >I consent to whatever you want to use with this data</mat-checkbox
+        >
+
+        <ng-container
+          *ngIf="
+            userData.controls['gdprConsent'].invalid &&
+            (userData.controls['gdprConsent'].dirty ||
+              userData.controls['gdprConsent'].touched)
+          "
+        >
+          <span
+            class="error field-error"
+            *ngIf="userData.controls['gdprConsent'].value === false"
+          >
+            The GRPD consent must be accepted
+          </span>
+        </ng-container>
       </div>
 
       <div>

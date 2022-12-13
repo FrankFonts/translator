@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  registrationUrl: 'registration',
+  translationUrl: 'translation',
+  localStorageKey: 'translatorStatus',
+  // baseUrl: 'https://lt.vern.cc',
+  baseUrl: 'https://translate.terraprint.co',
+  // baseUrl: 'https://libretranslate.de',
 };
 
 /*
